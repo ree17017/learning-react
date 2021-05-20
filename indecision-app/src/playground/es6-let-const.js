@@ -1,4 +1,4 @@
-var nameVar = "Josh";
+let nameVar = "Josh";
 nameVar = "Flint";
 console.log("nameVar", nameVar);
 
@@ -11,11 +11,9 @@ console.log(nameConst);
 
 // Block scoping
 
-var fullName = "Joshua Reed";
+const fullName = "Joshua Reed";
 
 if (fullName) {
     let firstName = fullName.split(" ")[0];
     console.log(firstName);
 }
-
-console.log(firstName);

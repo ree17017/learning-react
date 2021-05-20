@@ -1,11 +1,11 @@
 console.log("App.js is running");
 
-var movie = {
+const movie = {
     title: "Star Wars a New Hpe",
     subtitle: "The best",
 };
 
-var template = (
+const template = (
     <div>
         {movie.title && <h1>{movie.title}</h1>}
         {movie.subtitle && <p>{movie.subtitle}</p>}
@@ -13,7 +13,7 @@ var template = (
     </div>
 );
 
-var user = {
+const user = {
     name: "Reed",
     age: 38,
     location: "Santaquin",
@@ -25,7 +25,7 @@ function getLocation(location) {
     }
 }
 
-var myProfile = (
+const myProfile = (
     <div>
         <h1>{user.name ? user.name : "Anonymous"}</h1>
         {user.age && user.age >= 18 && <p>Age: {user.age}</p>}
@@ -33,6 +33,6 @@ var myProfile = (
     </div>
 );
 
-var appRoot = document.getElementById("app");
+const appRoot = document.getElementById("app");
 
 ReactDOM.render(template, appRoot);

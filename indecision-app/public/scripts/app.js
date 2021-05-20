@@ -1,23 +1,62 @@
 "use strict";
 
-var nameVar = "Josh";
-nameVar = "Flint";
-console.log("nameVar", nameVar);
+console.log("App.js is running");
 
-var nameLet = "Jen";
-nameLet = "Ken";
-console.log(nameLet);
+var movie = {
+    title: "Star Wars a New Hpe",
+    subtitle: "The best"
+};
 
-var nameConst = "Frank";
-console.log(nameConst);
+var template = React.createElement(
+    "div",
+    null,
+    movie.title && React.createElement(
+        "h1",
+        null,
+        movie.title
+    ),
+    movie.subtitle && React.createElement(
+        "p",
+        null,
+        movie.subtitle
+    ),
+    movie.length > 0 ? "Here are yoiur options" : "No Options"
+);
 
-// Block scoping
+var user = {
+    name: "Reed",
+    age: 38,
+    location: "Santaquin"
+};
 
-var fullName = "Joshua Reed";
-
-if (fullName) {
-    var _firstName = fullName.split(" ")[0];
-    console.log(_firstName);
+function getLocation(location) {
+    if (location) {
+        return React.createElement(
+            "p",
+            null,
+            "Location: ",
+            user.location
+        );
+    }
 }
 
-console.log(firstName);
+var myProfile = React.createElement(
+    "div",
+    null,
+    React.createElement(
+        "h1",
+        null,
+        user.name ? user.name : "Anonymous"
+    ),
+    user.age && user.age >= 18 && React.createElement(
+        "p",
+        null,
+        "Age: ",
+        user.age
+    ),
+    getLocation(user.location)
+);
+
+var appRoot = document.getElementById("app");
+
+ReactDOM.render(template, appRoot);
