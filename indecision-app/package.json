@@ -9,6 +9,7 @@
    },
    "scripts": {
       "live": "live-server public",
-      "start": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+      "start": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch",
+      "play": "babel src/playground/es6-let-const.js --out-file=public/scripts/app.js --presets=env,react --watch"
    }
 }
