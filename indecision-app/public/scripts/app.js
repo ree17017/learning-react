@@ -1,54 +1,91 @@
 "use strict";
 
-// const square = function (x) {
-//     return x * x;
-// };
-
-// const suareArrow = (x) => x * x;
-
-// console.log(square(8));
-
-// console.log(suareArrow(8));
-
-var getFirstName = function getFirstName(firstName) {
-    return firstName.split(" ")[0];
+var app = {
+    title: "Star Wars a New Hpe",
+    subtitle: "The best",
+    options: []
 };
 
-console.log(getFirstName("Joshua Reed"));
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault();
 
-var add = function add(a, b) {
-    return a + b;
-};
+    var option = e.target.elements.option.value;
 
-console.log(add(1, 2));
-
-var user = {
-    name: "Josh",
-    cities: ["Turlock", "Modesto", "Santaquin"],
-    printPlacesLived: function printPlacesLived() {
-        var _this = this;
-
-        return this.cities.map(function (city) {
-            return _this.name + " has livined in " + city;
-        });
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = "";
+        renderFormApp();
     }
 };
-
-console.log(user.printPlacesLived());
-
-var multiplier = {
-    numbers: [1, 2, 3],
-    multiplyBy: 2,
-    multiply: function multiply() {
-        var _this2 = this;
-
-        var numbers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.numbers;
-        var multiplyBy = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.multiplyBy;
-
-        return this.numbers.map(function (num) {
-            return num * _this2.multiplyBy;
-        });
-    }
+var removeOptions = function removeOptions() {
+    app.options = [];
+    renderFormApp();
 };
 
-console.log(multiplier.multiply());
+var numbers = [55, 101, 100];
+var onMakeDecision = function onMakeDecision() {
+    var randomNum = Math.floor(Math.random() * app.options.length);
+    var option = app.options[randomNum];
+    console.log(option);
+};
+
+var appRoot = document.getElementById("app");
+
+var renderFormApp = function renderFormApp() {
+    var template = React.createElement(
+        "div",
+        null,
+        React.createElement(
+            "h1",
+            null,
+            app.title
+        ),
+        app.subtitle && React.createElement(
+            "p",
+            null,
+            app.subtitle
+        ),
+        React.createElement(
+            "button",
+            {
+                disabled: app.options.length == 0,
+                onClick: onMakeDecision
+            },
+            "What Should I do?"
+        ),
+        React.createElement(
+            "button",
+            { onClick: removeOptions },
+            "Remove All"
+        ),
+        React.createElement(
+            "form",
+            { onSubmit: onFormSubmit },
+            React.createElement("input", { type: "text", name: "option" }),
+            React.createElement(
+                "button",
+                null,
+                "Add Option"
+            )
+        ),
+        React.createElement(
+            "p",
+            null,
+            app.options.length > 0 ? "Here are your options" : "No Options"
+        ),
+        React.createElement(
+            "ol",
+            null,
+            app.options.map(function (option) {
+                return React.createElement(
+                    "li",
+                    { key: option },
+                    option
+                );
+            })
+        )
+    );
+    ReactDOM.render(template, appRoot);
+};
+
+renderFormApp();

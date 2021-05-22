@@ -1,38 +1,63 @@
-console.log("App.js is running");
-
-const movie = {
+const app = {
     title: "Star Wars a New Hpe",
     subtitle: "The best",
+    options: [],
 };
 
-const template = (
-    <div>
-        {movie.title && <h1>{movie.title}</h1>}
-        {movie.subtitle && <p>{movie.subtitle}</p>}
-        {movie.length > 0 ? "Here are yoiur options" : "No Options"}
-    </div>
-);
+const onFormSubmit = (e) => {
+    e.preventDefault();
 
-const user = {
-    name: "Reed",
-    age: 38,
-    location: "Santaquin",
-};
+    const option = e.target.elements.option.value;
 
-function getLocation(location) {
-    if (location) {
-        return <p>Location: {user.location}</p>;
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = "";
+        renderFormApp();
     }
-}
+};
+const removeOptions = () => {
+    app.options = [];
+    renderFormApp();
+};
 
-const myProfile = (
-    <div>
-        <h1>{user.name ? user.name : "Anonymous"}</h1>
-        {user.age && user.age >= 18 && <p>Age: {user.age}</p>}
-        {getLocation(user.location)}
-    </div>
-);
+const numbers = [55, 101, 100];
+const onMakeDecision = () => {
+    const randomNum = Math.floor(Math.random() * app.options.length);
+    const option = app.options[randomNum];
+    console.log(option);
+};
 
 const appRoot = document.getElementById("app");
 
-ReactDOM.render(template, appRoot);
+const renderFormApp = () => {
+    const template = (
+        <div>
+            <h1>{app.title}</h1>
+            {app.subtitle && <p>{app.subtitle}</p>}
+            <button
+                disabled={app.options.length == 0}
+                onClick={onMakeDecision}
+            >
+                What Should I do?
+            </button>
+            <button onClick={removeOptions}>Remove All</button>
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="option" />
+                <button>Add Option</button>
+            </form>
+            <p>
+                {app.options.length > 0
+                    ? "Here are your options"
+                    : "No Options"}
+            </p>
+            <ol>
+                {app.options.map((option) => {
+                    return <li key={option}>{option}</li>;
+                })}
+            </ol>
+        </div>
+    );
+    ReactDOM.render(template, appRoot);
+};
+
+renderFormApp();
